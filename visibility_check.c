@@ -42,7 +42,7 @@ int count_visible(int *line)
 //       c[3][i] = right seen on row i
 //       c[0][i] = top   seen on column i
 //       c[1][i] = bottom seen on column i
-int check_visibility(int g[4][4], int c[4][4]) //didn't use this at all thought
+int check_visibility(int grid[4][4], int clues[4][4]) //didn't use this at all thought
 {
     int l[4];       // current row (left→right)
     int r[4];       // current column (top→bottom)
@@ -55,17 +55,17 @@ int check_visibility(int g[4][4], int c[4][4]) //didn't use this at all thought
         cell = 0;
         while (cell < 4)
         {
-            l[cell] = g[index][cell];   // row index, move across columns
-            r[cell] = g[cell][index];   // column index, move down rows
+            l[cell] = grid[index][cell];   // row index, move across columns
+            r[cell] = grid[cell][index];   // column index, move down rows
             cell++;
         }
 
         // Check both directions against the corresponding clues.
         // The compound literal (int [4]){...} builds a reversed view quickly.
-        if (count_visible(l) != c[2][index]                                     // left
-         || count_visible((int [4]){l[3], l[2], l[1], l[0]}) != c[3][index]     // right
-         || count_visible(r) != c[0][index]                                     // top
-         || count_visible((int [4]){r[3], r[2], r[1], r[0]}) != c[1][index])    // bottom
+        if (count_visible(l) != clues[2][index]                                     // left
+         || count_visible((int [4]){l[3], l[2], l[1], l[0]}) != clues[3][index]     // right
+         || count_visible(r) != clues[0][index]                                     // top
+         || count_visible((int [4]){r[3], r[2], r[1], r[0]}) != clues[1][index])    // bottom
             return (0);
 
         index++;

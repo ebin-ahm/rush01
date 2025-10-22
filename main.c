@@ -15,6 +15,7 @@
 // forward declarations (implemented elsewhere)
 int parse_clues(const char *s, int clues[4][4]);
 int solve(int grid[4][4], int clues[4][4]);
+int check_visibility(int grid[4][4], int clues[4][4]);
 
 // print a single digit (1..4) as a character
 void putnbr_c(int n)
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
 
     // require exactly one argument (the 16 clues string),
     // parse clues into a 4x4 array, then attempt to solve.
-    if (argc != 2 || !parse_clues(argv[1], clues) || !solve(grid, clues))
+    if (argc != 2 || !parse_clues(argv[1], clues) || !solve(grid, clues ) || !check_visibility(grid, clues))
     {
         write(1, "Error\n", 6);      // any failure prints "Error" and exits 1
         return (1);
